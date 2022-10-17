@@ -11,7 +11,7 @@ import cookieSession from "cookie-session";
 const expressServer = express();
 expressServer.use(cors());
 
-const port: number = +process.env.PORT || 8080;
+const port: number = +process.env.PORT || 5000;
 
 expressServer.use(express.json()); // Support json in the body
 expressServer.use(cookieSession({
