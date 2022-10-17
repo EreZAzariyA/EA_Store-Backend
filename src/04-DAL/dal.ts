@@ -1,10 +1,10 @@
 import mysql, { MysqlError } from "mysql";
 
 const connection = mysql.createPool({
-      host: "ea-store.cusvv2nrgef1.us-east-1.rds.amazonaws.com",
-      user: "erezazariya",
-      password: "59713973",
-      database: "eastore"
+      host: process.env.host,
+      user: process.env.user,
+      password: process.env.password,
+      database: process.env.database
 });
 
 function execute(sql: string): Promise<any> {
