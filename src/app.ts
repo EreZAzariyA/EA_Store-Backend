@@ -12,8 +12,6 @@ const expressServer = express();
 expressServer.use(cors());
 
 const port: number = +process.env.PORT || 5000;
-console.log(port);
-
 
 expressServer.use(express.json()); // Support json in the body
 expressServer.use(cookieSession({
