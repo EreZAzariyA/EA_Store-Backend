@@ -50,6 +50,7 @@ router.delete("/:userCartId/:productId", async (req: Request, res: Response, nex
             const productId = req.params.productId;
             await cartLogic.deleteItemFromCart(userCartId,productId);
             res.status(200).json("Deleted...");
+            console.log("deleted...");
       } catch (err: any) {
             next(err);
       }
