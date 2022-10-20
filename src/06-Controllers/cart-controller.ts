@@ -44,13 +44,12 @@ router.post("/user-cart/:userId", async (req: Request, res: Response, next: Next
       }
 });
 
-router.delete("/:userCartId/:productId", async (req: Request, res: Response, next: NextFunction) => {
+router.delete("/:itemIdToDelete/:userCartId", async (req: Request, res: Response, next: NextFunction) => {
       try {
+            const itemIdToDelete = req.params.itemIdToDelete;
             const userCartId = req.params.userCartId;
-            const productId = req.params.productId;
-            await cartLogic.deleteItemFromCart(userCartId,productId);
+            await cartLogic.deleteItemFromCart(itemIdToDelete, userCartId);
             res.status(200).json("Deleted...");
-            console.log("deleted...");
       } catch (err: any) {
             next(err);
       }

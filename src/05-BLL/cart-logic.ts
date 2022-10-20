@@ -4,6 +4,8 @@ import dal from "../04-DAL/dal";
 import { v4 as uuid } from "uuid";
 import moment from "moment";
 import ClientError from "../03-Models/client-error";
+import ProductModel from "../03-Models/product-model";
+import UserModel from "../03-Models/user-model";
 
 
 async function createNewShoppingCart(userId: string): Promise<UserCartModel> {
@@ -58,7 +60,19 @@ async function addItemIntoCart(itemToAdd: ItemInCartModel): Promise<void> {
       }
 }
 
-async function deleteItemFromCart(userCartId: string, itemIdToDelete: string): Promise<void> {
+async function deleteItemFromCart(itemIdToDelete: string, userCartId: string): Promise<void> {
+
+      const productSql = "SELECT * FROM products";
+      const products: ProductModel[] = await dal.execute(productSql);
+      if (!products.find(p => p.productId === itemIdToDelete)) {
+            throw new ClientError(500, "Product not found");
+      }
+      const cartsSql = "SELECT * FROM userscarts";
+      const carts: UserCartModel[] = await dal.execute(cartsSql);
+      if (!carts.find(c => c.userCartId === userCartId)) {
+            throw new ClientError(500, "Shopping cart not found");
+      }
+
       const sql = `DELETE FROM itemsincart WHERE productId = '${itemIdToDelete}' AND userCartId = '${userCartId}'`;
       await dal.execute(sql);
 }
