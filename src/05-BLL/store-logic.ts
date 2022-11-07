@@ -44,8 +44,7 @@ async function addNewCategory(category: CategoryModel): Promise<CategoryModel> {
 }
 
 async function getAllProducts(): Promise<ProductModel[]> {
-      // const sql = "SELECT * FROM products inner join categories where products.categoryId = categories.categoryId";
-      const sql = 'SELECT * FROM products'
+      const sql = 'SELECT * FROM eastore.products'
       const products = await dal.execute(sql);
       return products;
 }
@@ -74,7 +73,7 @@ async function addNewProduct(product: ProductModel): Promise<ProductModel> {
       return product;
 }
 
-async function deleteProductByProductId(productId: string): Promise<void>{
+async function deleteProductByProductId(productId: string): Promise<void> {
       const sql = `DELETE FROM products WHERE productId = '${productId}'`;
       await dal.execute(sql);
 }
