@@ -44,7 +44,7 @@ async function addNewCategory(category: CategoryModel): Promise<CategoryModel> {
 }
 
 async function getAllProducts(): Promise<ProductModel[]> {
-      const sql = 'SELECT * FROM eastore.products'
+      const sql = 'SELECT * FROM products'
       const products = await dal.execute(sql);
       return products;
 }
