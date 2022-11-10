@@ -46,13 +46,11 @@ async function login(credentials: CredentialsModel): Promise<string> {
       // Execute the commend - get all users by this credentials (one user)
       const users: UserModel[] = await dal.execute(sql);
 
-      // If user not exist (array is empty)
-      if (users.length === 0) {
-            throw new ClientError(401, "Incorrect username or password");
-      }
-
       // Get the user
       const user = users[0];
+      // If user not exist (array is empty)
+      if (!user) throw new ClientError(401, "Incorrect username or password");
+
       const token = jwt.getNewToken(user);
       socketLogic.emitLogin(user);
       return token;
